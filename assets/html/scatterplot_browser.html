@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="../css/style.css" >
+</head>
+
+<body>
+<svg id="scatterplot" width="500" height="500"></svg>
+
+<script type="text/javascript" src="../js/d3.min.js" ></script>
+<script type="text/javascript" src="../js/any_scatter_plot.js" ></script>
+<script type="text/javascript" src="../js/my_scatter_plot.js" ></script>
+<script>
+
+var xDomain = { min : 0, max : 10000};
+var yDomain = { min : 100, max : 200 };
+
+var xDomainDiff = xDomain.max - xDomain.min;
+var yDomainDiff = yDomain.max - yDomain.min;
+
+initChart("scatterplot", xDomain, yDomain);
+
+var pointCount = 20;
+
+for (var i = 0; i < pointCount; i++) {
+	
+	var x = parseInt(Math.random() * xDomainDiff + xDomain.min);
+	var y = parseInt(Math.random() * yDomainDiff + yDomain.min);    
+	addDataPoint("scatterplot", x, y); 	
+}
+
+</script>
+
+</body>
+</html>
