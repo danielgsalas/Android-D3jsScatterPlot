@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -42,14 +41,10 @@ public class MainFragment extends Fragment
      */
     private void initWebView(View topLevelView)
     {
-        WebView webview = (WebView)topLevelView.findViewById(
-            R.id.webview);
-        
+        WebView webview = (WebView)topLevelView.findViewById(R.id.webview);        
         webview.getSettings().setJavaScriptEnabled(true);
-        
-        webview.setWebChromeClient(
-            new WebChromeClient());
-        
+
+        // WebView reference in the inner class must be final
         final WebView wv = webview;
             
         webview.setWebViewClient(new WebViewClient() 
@@ -59,11 +54,11 @@ public class MainFragment extends Fragment
                 WebView view, 
                 String url)  
             {
+                // build JavaScript-format objects
                 String xDomain = "{ min : " + xMin + ", max : " + xMax + " }";
                 String yDomain = "{ min : " + yMin + ", max : " + yMax + " }";
                 
-                // call methods in my_scatter_plot.js 
-                // through scatterplot_android.html
+                // call methods in my_scatter_plot.js through scatterplot_android.html
                 wv.loadUrl("javascript:buildChart('scatterplot', " + xDomain + "," + yDomain + ")");
                 
                 // after the HTML page loads, 
