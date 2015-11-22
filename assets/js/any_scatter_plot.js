@@ -131,7 +131,7 @@ var drawDottedLine = function(chart, lineId, pointOne, pointTwo) {
  */
 var drawXAxis = function(chart, xDomain, xRange, xAxisAdjust, ascendingScale) {
 
-    var maxTickCount = 5;
+    var maxTickCount = (xRange.max - xRange.min) / 50;
     var tickCalculationDivisor = 2;
     var tickCount = calculateLinearTickCount(xDomain, maxTickCount, tickCalculationDivisor);
 
@@ -169,7 +169,7 @@ var drawXAxis = function(chart, xDomain, xRange, xAxisAdjust, ascendingScale) {
  */
 var drawYAxis = function(chart, yDomain, yRange, yAxisAdjust, ascendingScale) {
 
-  var maxTickCount = 15;
+  var maxTickCount = (yRange.max - yRange.min) / 25;
   var tickCalculationDivisor = 2;
   var tickCount = calculateLinearTickCount(yDomain, maxTickCount, tickCalculationDivisor);
 	  
