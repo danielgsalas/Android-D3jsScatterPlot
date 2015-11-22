@@ -11,13 +11,13 @@
  */
 var calculateLinearTickCount = function(domain, maxTickCount, divisor) {
 	
-  var tickCount = domain.max - domain.min;
+    var tickCount = domain.max - domain.min;
 
-  while (tickCount > maxTickCount) {
-      tickCount /= divisor;
-  }
+    while (tickCount > maxTickCount) {
+        tickCount /= divisor;
+    }
   
-  return tickCount;
+    return tickCount;
 }
 
 /*
@@ -66,9 +66,9 @@ var calculatePixelLocationOnLinearScale = function(
  * @param {number} rangePoint.y - Location of the point on the vertical scale
  * 
  * @param {number} radius - The circle's radius in pixels
- * @param {string} cssStyle - Reference to a class in a cascading style sheet
+ * @param {string} cssClass - Reference to a class in a cascading style sheet
  */ 
-var drawDataPointOnChart = function(chart, rangePoint, radius, cssStyle) {
+var drawDataPointOnChart = function(chart, rangePoint, radius, cssClass) {
     
     if (rangePoint.x > -1 && rangePoint.y > -1) {
     	
@@ -77,7 +77,7 @@ var drawDataPointOnChart = function(chart, rangePoint, radius, cssStyle) {
    	         .attr("cy", rangePoint.y)
    	         .attr("r", radius)
    	         .attr("id", "dataPoint")
-   	         .attr("class", cssStyle)
+   	         .attr("class", cssClass)
     }
 }
 
@@ -98,13 +98,13 @@ var drawDataPointOnChart = function(chart, rangePoint, radius, cssStyle) {
 var drawDottedLine = function(chart, lineId, pointOne, pointTwo) {
 
   chart.append("line")
-    .style("stroke", "gray")
-    .style("stroke-dasharray", ("2, 2"))
-    .attr("id", lineId)
-    .attr("x1", pointOne.x)
-    .attr("y1", pointOne.y)
-    .attr("x2", pointTwo.x)
-    .attr("y2", pointTwo.y);
+       .style("stroke", "gray")
+       .style("stroke-dasharray", ("2, 2"))
+       .attr("id", lineId)
+       .attr("x1", pointOne.x)
+       .attr("y1", pointOne.y)
+       .attr("x2", pointTwo.x)
+       .attr("y2", pointTwo.y);
 }
 
 /*
@@ -135,14 +135,14 @@ var drawXAxis = function(chart, xDomain, xRange, xAxisAdjust, ascendingScale) {
     var tickCalculationDivisor = 2;
     var tickCount = calculateLinearTickCount(xDomain, maxTickCount, tickCalculationDivisor);
 
-    var xScale = initLinearScale(xDomain, xRange, ascendingScale);    
+    var xScale = initLinearScale(xDomain, xRange, ascendingScale);
     var xAxis = initLinearAxis(xScale, "bottom", tickCount);
     
     chart.append("svg:g")
-       .call(xAxis)
-       .attr("id","xAxis")
-       .attr("transform","translate(" + xAxisAdjust.horizontal + "," + xAxisAdjust.vertical + ")")
-       .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px' });
+         .call(xAxis)
+         .attr("id","xAxis")
+         .attr("transform","translate(" + xAxisAdjust.horizontal + "," + xAxisAdjust.vertical + ")")
+         .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px' });
 }
 
 /*
@@ -169,18 +169,18 @@ var drawXAxis = function(chart, xDomain, xRange, xAxisAdjust, ascendingScale) {
  */
 var drawYAxis = function(chart, yDomain, yRange, yAxisAdjust, ascendingScale) {
 
-  var maxTickCount = (yRange.max - yRange.min) / 25;
-  var tickCalculationDivisor = 2;
-  var tickCount = calculateLinearTickCount(yDomain, maxTickCount, tickCalculationDivisor);
+    var maxTickCount = (yRange.max - yRange.min) / 25;
+    var tickCalculationDivisor = 2;
+    var tickCount = calculateLinearTickCount(yDomain, maxTickCount, tickCalculationDivisor);
 	  
-  var yScale = initLinearScale(yDomain, yRange, ascendingScale);     
-  var yAxis = initLinearAxis(yScale, "left", tickCount);
+    var yScale = initLinearScale(yDomain, yRange, ascendingScale);     
+    var yAxis = initLinearAxis(yScale, "left", tickCount);
 
-  chart.append("svg:g")
-       .call(yAxis)
-       .attr("id","yAxis")
-       .attr("transform","translate(" + yAxisAdjust.horizontal + "," + yAxisAdjust.vertical + ")")
-       .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px' });
+    chart.append("svg:g")
+         .call(yAxis)
+         .attr("id","yAxis")
+         .attr("transform","translate(" + yAxisAdjust.horizontal + "," + yAxisAdjust.vertical + ")")
+         .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px' });
 }
 
 /*
@@ -220,19 +220,19 @@ var initLinearAxis = function (scale, labelOrientation, tickCount) {
  *                                   (for a vertical axis).
  */
 var initLinearScale = function(domain, range, ascendingScale) {
-  var scale;
+    var scale;
   
-  if (ascendingScale) {
-	  scale = d3.scale.linear()
-                 .range([range.min, range.max])
-                 .domain([domain.min, domain.max]);
+    if (ascendingScale) {
+	    scale = d3.scale.linear()
+                  .range([range.min, range.max])
+                  .domain([domain.min, domain.max]);
     
-  }
-  else {
-	  scale = d3.scale.linear()
-                .range([range.min, range.max])
-                .domain([domain.max, domain.min]);
-  }
+    }
+    else {
+ 	    scale = d3.scale.linear()
+                  .range([range.min, range.max])
+                  .domain([domain.max, domain.min]);
+    }
   
-  return scale;
+    return scale;
 }
