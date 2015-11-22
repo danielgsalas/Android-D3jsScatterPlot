@@ -13,19 +13,33 @@
 <script>
 
 var xDomain = { min : 0, max : 10000};
-var yDomain = { min : 100, max : 200 };
+var yDomain = { min : 0, max : 1000 };
 
 var xDomainDiff = xDomain.max - xDomain.min;
 var yDomainDiff = yDomain.max - yDomain.min;
 
-initChart("scatterplot", xDomain, yDomain);
+var xDomainMid = xDomainDiff / 2 + xDomain.min;
+var yDomainMid = yDomainDiff / 2 + yDomain.min;
+
+buildChart("scatterplot", xDomain, yDomain);
 
 var pointCount = 20;
 
 for (var i = 0; i < pointCount; i++) {
 	
 	var x = parseInt(Math.random() * xDomainDiff + xDomain.min);
-	var y = parseInt(Math.random() * yDomainDiff + yDomain.min);    
+
+	// generate y correlating to x
+	var y = x / 15 + 150;
+	
+	// randomize y a little bit
+	if (i % 2 == 0) {
+		y *= 1 + Math.random() * 0.2;
+	}
+	else {
+		y *= 1 - Math.random() * 0.2;
+	}
+	
 	addDataPoint("scatterplot", x, y); 	
 }
 

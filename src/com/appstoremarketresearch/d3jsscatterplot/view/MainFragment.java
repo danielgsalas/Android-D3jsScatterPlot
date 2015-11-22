@@ -19,8 +19,8 @@ public class MainFragment extends Fragment
     int xMin = 0;
     int xMax = 10000;
 
-    int yMin = 100;
-    int yMax = 200;
+    int yMin = 0;
+    int yMax = 1000;
     
     @Override
     public View onCreateView(
@@ -64,7 +64,7 @@ public class MainFragment extends Fragment
                 
                 // call methods in my_scatter_plot.js 
                 // through scatterplot_android.html
-                wv.loadUrl("javascript:initChart('scatterplot', " + xDomain + "," + yDomain + ")");
+                wv.loadUrl("javascript:buildChart('scatterplot', " + xDomain + "," + yDomain + ")");
                 
                 // after the HTML page loads, 
                 // submit data points
@@ -103,10 +103,32 @@ public class MainFragment extends Fragment
             
             for (int i = 0; i < pointCount; i++)
             {
-                int x = (int)(Math.round(Math.random() * (xMax - xMin) + xMin));
-                int y = (int)(Math.round(Math.random() * (yMax - yMin) + yMin));
+                final int x = (int)(Math.round(Math.random() * (xMax - xMin) + xMin));
                 
-                webview.loadUrl("javascript:addDataPoint('scatterplot'," + x + "," + y + ")");              
+                // generate y correlating to x
+                int y = x / 15 + 150;
+                
+                // randomize y a little bit
+                if (i % 2 == 0) {
+                    y *= 1 + Math.random() * 0.2;
+                }
+                else {
+                    y *= 1 - Math.random() * 0.2;
+                }
+                
+                // WARNING - java.lang.Throwable: A WebView method was called on thread 
+                // 'Thread-123'. All WebView methods must be called on the same thread.
+                //webview.loadUrl("javascript:addDataPoint('scatterplot'," + x + "," + y + ")");
+
+                final int yFinal = y;
+                
+                webview.post(new Runnable() 
+                {
+                    public void run() 
+                    {
+                        webview.loadUrl("javascript:addDataPoint('scatterplot'," + x + "," + yFinal + ")"); 
+                    }
+                });                
             }            
         }
     }
