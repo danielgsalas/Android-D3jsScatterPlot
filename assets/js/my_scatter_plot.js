@@ -56,6 +56,37 @@ var addDataPoint = function(chartId, x, y) {
 }
 
 /*
+ * Build the chart's axes and mid-lines using values specific to this chart.
+ * 
+ * @param {string} chartId - id of the SVG element in the HTML file
+ * 
+ * @param {Object} xDomain - Metadata about the domain values on a 
+ *                           horizontal line of a Cartesian coordinate system
+ * @param {number} xDomain.min - Minimum of the domain's horizontal values
+ * @param {number} xDomain.max - Maximum of the domain's horizontal values
+ * 
+ * @param {Object} yDomain - Metadata about the domain values on a 
+ *                           vertical line of a Cartesian coordinate system
+ * @param {number} yDomain.min - Minimum of the domain's vertical values
+ * @param {number} yDomain.max - Maximum of the domain's vertical values
+ */
+var buildChart = function(chartId, xDomain, yDomain) {
+ 
+    var chart = d3.select("#" + chartId);
+    
+    domain.x = xDomain;
+    domain.y = yDomain;
+    domain.x.mid = (domain.x.max - domain.x.min) / 2 + domain.x.min;
+    domain.y.mid = (domain.y.max - domain.y.min) / 2 + domain.y.min;
+ 
+    drawXAxis(chart, domain.x, xRange, xAxisAdjust, xAxisAscending);
+    drawYAxis(chart, domain.y, yRange, yAxisAdjust, yAxisAscending);
+
+    drawMidlineHorizontal(chart);
+    drawMidlineVertical(chart);
+}
+
+/*
  * Create a range point from a domain point.
  * 
  * @param {Object} domainPoint - A point in the real world
@@ -110,36 +141,6 @@ var drawMidlineVertical = function(chart) {
 	drawDottedLine(chart, "midwayVertical", rangePointStart, rangePointEnd);
 }
 
-/*
- * Initialize the chart with values specific to this chart.
- * 
- * @param {string} chartId - id of the SVG element in the HTML file
- * 
- * @param {Object} xDomain - Metadata about the domain values on a 
- *                           horizontal line of a Cartesian coordinate system
- * @param {number} xDomain.min - Minimum of the domain's horizontal values
- * @param {number} xDomain.max - Maximum of the domain's horizontal values
- * 
- * @param {Object} yDomain - Metadata about the domain values on a 
- *                           vertical line of a Cartesian coordinate system
- * @param {number} yDomain.min - Minimum of the domain's vertical values
- * @param {number} yDomain.max - Maximum of the domain's vertical values
- */
-var initChart = function(chartId, xDomain, yDomain) {
- 
-    var chart = d3.select("#" + chartId);
-    
-    domain.x = xDomain;
-    domain.y = yDomain;
-    domain.x.mid = (domain.x.max - domain.x.min) / 2 + domain.x.min;
-    domain.y.mid = (domain.y.max - domain.y.min) / 2 + domain.y.min;
- 
-    drawXAxis(chart, domain.x, xRange, xAxisAdjust, xAxisAscending);
-    drawYAxis(chart, domain.y, yRange, yAxisAdjust, yAxisAscending);
-
-    drawMidlineHorizontal(chart);
-    drawMidlineVertical(chart);
-}
 
 /*
  * Determine if the input values map to the upper right quadrant 
