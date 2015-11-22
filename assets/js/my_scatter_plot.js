@@ -132,8 +132,8 @@ var drawMidlineHorizontal = function(chart) {
  */
 var drawMidlineVertical = function(chart) {
 
-	var domainPointStart = { x : domain.x.mid, y : yDomain.min };
-	var domainPointEnd = { x : domain.x.mid, y : yDomain.max };
+	var domainPointStart = { x : domain.x.mid, y : domain.y.min };
+	var domainPointEnd = { x : domain.x.mid, y : domain.y.max };
 	
 	var rangePointStart = calculateRangePoint(domainPointStart);
 	var rangePointEnd = calculateRangePoint(domainPointEnd);
