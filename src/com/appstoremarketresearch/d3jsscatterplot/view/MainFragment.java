@@ -104,12 +104,7 @@ public class MainFragment extends Fragment
                 int y = x / 15 + 150;
                 
                 // randomize y a little bit
-                if (i % 2 == 0) {
-                    y *= 1 + Math.random() * 0.2;
-                }
-                else {
-                    y *= 1 - Math.random() * 0.2;
-                }
+                y *= 1 - Math.random() * 0.4;
                 
                 // WARNING - java.lang.Throwable: A WebView method was called on thread 
                 // 'Thread-123'. All WebView methods must be called on the same thread.
