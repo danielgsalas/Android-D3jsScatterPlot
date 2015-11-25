@@ -44,14 +44,11 @@ public class MainFragment extends Fragment
         WebView webview = (WebView)topLevelView.findViewById(R.id.webview);        
         webview.getSettings().setJavaScriptEnabled(true);
 
-        // WebView reference in the inner class must be final
-        final WebView wv = webview;
-            
         webview.setWebViewClient(new WebViewClient() 
         {
             @Override  
             public void onPageFinished(
-                WebView view, 
+                WebView wv, 
                 String url)  
             {
                 // build JavaScript-format objects
