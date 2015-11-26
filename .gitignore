@@ -25,3 +25,13 @@ proguard/
 
 # Log Files
 *.log
+.settings/org.eclipse.jdt.core.prefs
+.project
+project.properties
+.classpath
+project_notes/business_plan.txt
+project_notes/ui_design.txt
+assets/js/logarithmic_functions.js
+project_notes/researchcompetition.txt
+unused/logarithmic_functions.js
+proguard-project.txt

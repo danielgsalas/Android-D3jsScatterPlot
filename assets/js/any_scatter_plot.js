@@ -17,6 +17,8 @@ var calculateLinearTickCount = function(domain, maxTickCount, divisor) {
         tickCount /= divisor;
     }
   
+    tickCount = parseInt(Math.round(tickCount));
+    
     return tickCount;
 }
 
