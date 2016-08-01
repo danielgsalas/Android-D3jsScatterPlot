@@ -1,0 +1,12 @@
+
+.dataPointDanger {
+  fill: red;
+}
+
+.dataPointSafe {
+  fill: green;
+}
+
+.dataPointWarning {
+  fill: yellow;
+}
